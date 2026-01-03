@@ -1,0 +1,8 @@
+# Custom Components Directory
+# ===========================
+# Reserved for "Vibecoded" client-specific components.
+# Examples: PizzaCalculator, CustomWidget, SpecialFeature, etc.
+#
+# These are one-off features that won't be reused across projects.
+# Place unique, project-specific functionality here.
+

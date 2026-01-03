@@ -1,0 +1,8 @@
+# UI Components Directory
+# =======================
+# Reserved for atomic UI primitives (Shadcn UI components).
+# Examples: Button, Input, Card, Dialog, Select, etc.
+#
+# These are the building blocks, not complete features.
+# Keep components here minimal and highly reusable.
+

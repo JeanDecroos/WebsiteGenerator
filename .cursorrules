@@ -1,0 +1,93 @@
+# Website Generator - AI Development Guidelines
+# =============================================
+# These rules ensure consistent, high-quality code generation.
+#
+# ⚠️  IMPORTANT: Always read `docs/DEVELOPMENT.md` first!
+#     It contains current state, pending tasks, and context.
+#
+# 📁 Documentation: See `docs/` folder for full project docs.
+
+## Content & Configuration
+
+- Always read `config/site.ts` for text content (names, links, descriptions). Never hardcode site-specific text in components.
+- Use the typed `siteConfig` object for all configurable values.
+- When adding new configuration options, extend the TypeScript interfaces in `config/site.ts`.
+
+## Styling & Theming
+
+- Always use Tailwind utility classes referencing CSS variables (e.g., `bg-primary`, `text-foreground`) instead of arbitrary colors (e.g., `bg-blue-500`, `text-gray-700`).
+- Define all colors, spacing, and design tokens in `app/globals.css` using CSS variables.
+- Follow the HSL color format for all color variables (without the `hsl()` wrapper).
+- Use the `cn()` utility from `lib/utils.ts` for conditional class merging.
+
+## Component Organization
+
+- **`components/ui`**: Reserved for atomic UI primitives (Button, Input, Card, etc.). These are building blocks, not features.
+- **`components/modules`**: Reserved for "Harvested" reusable features (Hero, Navbar, Footer, BlogGrid, etc.). These must be generic and configurable.
+- **`components/custom`**: Reserved for "Vibecoded" client-specific components (PizzaCalculator, CustomWidget, etc.). One-off features that won't be reused.
+
+## Component Guidelines
+
+- When creating generic, reusable features → place in `components/modules`.
+- When creating unique, one-off features → place in `components/custom`.
+- All components should use TypeScript with proper type definitions.
+- Prefer composition over prop drilling for complex components.
+- Export both named and default exports for flexibility.
+
+## Icons & Assets
+
+- Use `lucide-react` for all icons. Import individually: `import { IconName } from "lucide-react"`.
+- Avoid inline SVGs when a Lucide icon exists.
+- Store static assets in the `public/` directory.
+
+## Code Style
+
+- Use TypeScript strict mode. No `any` types without explicit justification.
+- Prefer functional components with hooks over class components.
+- Use `"use client"` directive only when client-side features are needed.
+- Keep server components as the default for better performance.
+
+## File Naming
+
+- Use kebab-case for file names: `hero-section.tsx`, `blog-grid.tsx`.
+- Use PascalCase for component names: `HeroSection`, `BlogGrid`.
+- Index files (`index.ts`) for clean imports from directories.
+
+## Accessibility
+
+- Include proper ARIA labels on interactive elements.
+- Ensure keyboard navigation works correctly.
+- Maintain sufficient color contrast (use CSS variables to ensure this).
+- Add `focus-ring` utility class to focusable elements.
+
+## Performance
+
+- Use Next.js Image component for all images.
+- Lazy load components below the fold.
+- Minimize client-side JavaScript; prefer Server Components.
+- Use dynamic imports for heavy libraries.
+
+## Feature Flags
+
+- Check `siteConfig.features` before rendering optional functionality.
+- Example: `{siteConfig.features.enableBlog && <BlogSection />}`
+
+## Documentation
+
+- **Always read `docs/DEVELOPMENT.md` first** when starting a session.
+- Update documentation after significant changes:
+  - `docs/DEVELOPMENT.md` - Current state and next steps
+  - `docs/CHANGELOG.md` - What was changed
+- Key docs:
+  - `docs/ARCHITECTURE.md` - Project structure
+  - `docs/GENERATOR.md` - How generation works
+  - `docs/WIZARD.md` - UI documentation
+
+## When Unsure
+
+1. **Read the docs** in `docs/` folder first.
+2. Check existing components in `components/modules` for patterns.
+3. Refer to `config/site.ts` for configuration structure.
+4. Review `app/globals.css` for available CSS variables.
+5. Ask for clarification rather than making assumptions.
+
