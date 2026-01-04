@@ -1,6 +1,6 @@
 # Development Guide
 
-> **Last Updated:** January 3, 2026  
+> **Last Updated:** January 4, 2026  
 > **READ THIS FIRST** when continuing development
 
 ---
@@ -21,6 +21,8 @@
 - [x] **Projects management page** - View and delete generated projects
 - [x] **ZIP export** - Download projects as ZIP files
 - [x] **State persistence** - Wizard state saved to localStorage
+- [x] **Design system upgrade** - Complete CSS variable system with light/dark mode
+- [x] **Projects page redesign** - Modern card-based UI with improved UX
 
 ### 🔄 In Progress
 - Nothing currently in progress

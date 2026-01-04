@@ -1,6 +1,6 @@
 # Changelog
 
-> **Last Updated:** January 3, 2026
+> **Last Updated:** January 4, 2026
 
 All notable changes to this project.
 
@@ -14,6 +14,42 @@ All notable changes to this project.
 - [ ] Template preview gallery
 - [ ] Deploy to Vercel integration
 - [ ] Quick preview mode (dev server in iframe)
+
+---
+
+## January 4, 2026
+
+### Session 5 - Design System & UI Polish
+
+#### Enhanced
+- **CSS Design System** (`app/globals.css`)
+  - Complete design system with semantic color tokens
+  - Full light and dark mode support with CSS variables
+  - Added all Shadcn UI color tokens (primary, secondary, muted, accent, destructive, etc.)
+  - Proper `@layer base` structure for Tailwind integration
+  - Scrollbar styling now uses CSS variables for consistent theming
+  - Added grid pattern utility class for decorative backgrounds
+  - Replaced hardcoded colors with semantic tokens throughout
+
+- **Projects Page UI** (`app/projects/page.tsx`)
+  - Redesigned with modern card-based layout
+  - Grid layout (1/2/3 columns) responsive to screen size
+  - Enhanced visual hierarchy with gradient headers on cards
+  - Improved empty state with better messaging and CTA
+  - Better hover effects and transitions (lift on hover, shadow changes)
+  - More prominent Download buttons with improved styling
+  - Responsive header that adapts to mobile screens
+  - Better use of semantic color tokens (bg-card, text-foreground, etc.)
+  - Project count indicator
+  - Improved loading and error states
+
+#### Removed
+- Test project cleanup - Removed `/output/test/` directory contents
+
+#### Technical
+- All components now properly use CSS variable system
+- Better adherence to Tailwind best practices with `@apply` directives
+- Improved accessibility with better focus states and semantic HTML
 
 ---
 

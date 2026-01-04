@@ -79,33 +79,41 @@ export default function ProjectsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+    <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background">
       {/* Header */}
-      <div className="border-b bg-white/80 backdrop-blur-sm">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
+      <div className="border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container mx-auto px-6 py-6">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <FolderOpen className="w-6 h-6 text-primary" />
-              <h1 className="text-2xl font-bold text-foreground">Generated Projects</h1>
+              <div className="p-2 rounded-lg bg-primary/10">
+                <FolderOpen className="w-6 h-6 text-primary" />
+              </div>
+              <div>
+                <h1 className="text-3xl font-bold text-foreground">Your Projects</h1>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Manage and download your generated websites
+                </p>
+              </div>
             </div>
             <div className="flex items-center gap-3">
               <button
                 onClick={fetchProjects}
                 disabled={loading}
                 className={cn(
-                  "flex items-center gap-2 px-4 py-2 rounded-lg border transition-colors",
-                  "hover:bg-slate-100 disabled:opacity-50"
+                  "flex items-center gap-2 px-4 py-2 rounded-lg border border-border",
+                  "bg-background hover:bg-accent hover:text-accent-foreground transition-all",
+                  "disabled:opacity-50 disabled:cursor-not-allowed"
                 )}
               >
                 <RefreshCw className={cn("w-4 h-4", loading && "animate-spin")} />
-                Refresh
+                <span className="hidden sm:inline">Refresh</span>
               </button>
               <Link
                 href="/"
-                className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
+                className="flex items-center gap-2 px-5 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-all shadow-sm hover:shadow-md"
               >
                 <Home className="w-4 h-4" />
-                Back to Wizard
+                <span className="hidden sm:inline">Back to Wizard</span>
               </Link>
             </div>
           </div>
@@ -113,80 +121,114 @@ export default function ProjectsPage() {
       </div>
 
       {/* Content */}
-      <div className="container mx-auto px-6 py-8">
+      <div className="container mx-auto px-6 py-12">
         {loading ? (
-          <div className="flex items-center justify-center py-20">
-            <RefreshCw className="w-8 h-8 animate-spin text-primary" />
+          <div className="flex flex-col items-center justify-center py-32">
+            <RefreshCw className="w-12 h-12 animate-spin text-primary mb-4" />
+            <p className="text-muted-foreground">Loading your projects...</p>
           </div>
         ) : projects.length === 0 ? (
-          <div className="text-center py-20">
-            <FolderOpen className="w-16 h-16 mx-auto mb-4 text-muted-foreground/50" />
-            <h2 className="text-xl font-semibold text-foreground mb-2">No projects yet</h2>
-            <p className="text-muted-foreground mb-6">
-              Generate your first website to see it here
+          <div className="text-center py-32">
+            <div className="inline-flex p-6 rounded-full bg-muted/50 mb-6">
+              <FolderOpen className="w-20 h-20 text-muted-foreground/40" />
+            </div>
+            <h2 className="text-2xl font-bold text-foreground mb-3">No projects yet</h2>
+            <p className="text-muted-foreground mb-8 max-w-md mx-auto">
+              Start by creating your first website with our wizard. It only takes a few minutes!
             </p>
             <Link
               href="/"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-all shadow-lg hover:shadow-xl hover:scale-105"
             >
               <Home className="w-5 h-5" />
-              Go to Wizard
+              Create Your First Website
             </Link>
           </div>
         ) : (
-          <div className="grid gap-4">
-            {projects.map((project) => (
-              <div
-                key={project.name}
-                className="bg-white rounded-lg border shadow-sm p-6 hover:shadow-md transition-shadow"
-              >
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-foreground mb-2">
-                      {project.name}
-                    </h3>
-                    <div className="flex items-center gap-6 text-sm text-muted-foreground">
-                      <div className="flex items-center gap-2">
-                        <Calendar className="w-4 h-4" />
-                        <span>Created {formatDate(project.createdAt)}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Clock className="w-4 h-4" />
-                        <span>Modified {formatDate(project.modifiedAt)}</span>
+          <>
+            <div className="flex items-center justify-between mb-8">
+              <p className="text-muted-foreground">
+                {projects.length} {projects.length === 1 ? "project" : "projects"} generated
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {projects.map((project) => (
+                <div
+                  key={project.name}
+                  className={cn(
+                    "group relative bg-card rounded-xl border border-border overflow-hidden",
+                    "hover:shadow-xl hover:border-primary/50 transition-all duration-300",
+                    "hover:-translate-y-1"
+                  )}
+                >
+                  {/* Card Header with Gradient */}
+                  <div className="h-24 bg-gradient-to-br from-primary/20 via-primary/10 to-transparent relative">
+                    <div className="absolute inset-0 bg-grid-white/10" />
+                    <div className="absolute top-4 right-4">
+                      <div className="p-2 rounded-lg bg-background/80 backdrop-blur-sm border border-border">
+                        <FolderOpen className="w-5 h-5 text-primary" />
                       </div>
                     </div>
-                    <p className="text-xs text-muted-foreground mt-2 font-mono">
-                      {project.path}
-                    </p>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <a
-                      href={`/api/download?name=${encodeURIComponent(project.name)}`}
-                      download
-                      className={cn(
-                        "flex items-center gap-2 px-4 py-2 rounded-lg border border-cyan-200 text-cyan-600",
-                        "hover:bg-cyan-50 transition-colors"
-                      )}
-                    >
-                      <Download className="w-4 h-4" />
-                      Download
-                    </a>
-                    <button
-                      onClick={() => handleDelete(project.name)}
-                      disabled={deleting === project.name}
-                      className={cn(
-                        "flex items-center gap-2 px-4 py-2 rounded-lg border border-red-200 text-red-600",
-                        "hover:bg-red-50 transition-colors disabled:opacity-50"
-                      )}
-                    >
-                      <Trash2 className={cn("w-4 h-4", deleting === project.name && "animate-pulse")} />
-                      {deleting === project.name ? "Deleting..." : "Delete"}
-                    </button>
+
+                  {/* Card Content */}
+                  <div className="p-6 space-y-4">
+                    <div>
+                      <h3 className="text-xl font-bold text-foreground mb-2 line-clamp-1 group-hover:text-primary transition-colors">
+                        {project.name}
+                      </h3>
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                          <Calendar className="w-4 h-4 shrink-0" />
+                          <span className="truncate">Created {formatDate(project.createdAt)}</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                          <Clock className="w-4 h-4 shrink-0" />
+                          <span className="truncate">Modified {formatDate(project.modifiedAt)}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Path Badge */}
+                    <div className="pt-2 border-t border-border">
+                      <p className="text-xs text-muted-foreground font-mono truncate" title={project.path}>
+                        {project.path}
+                      </p>
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div className="flex gap-2 pt-2">
+                      <a
+                        href={`/api/download?name=${encodeURIComponent(project.name)}`}
+                        download
+                        className={cn(
+                          "flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg",
+                          "bg-primary text-primary-foreground",
+                          "hover:bg-primary/90 transition-all shadow-sm hover:shadow"
+                        )}
+                      >
+                        <Download className="w-4 h-4" />
+                        <span className="font-medium">Download</span>
+                      </a>
+                      <button
+                        onClick={() => handleDelete(project.name)}
+                        disabled={deleting === project.name}
+                        className={cn(
+                          "flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg",
+                          "border border-destructive/30 text-destructive",
+                          "hover:bg-destructive hover:text-destructive-foreground transition-all",
+                          "disabled:opacity-50 disabled:cursor-not-allowed"
+                        )}
+                        title="Delete project"
+                      >
+                        <Trash2 className={cn("w-4 h-4", deleting === project.name && "animate-pulse")} />
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          </>
         )}
       </div>
     </div>
